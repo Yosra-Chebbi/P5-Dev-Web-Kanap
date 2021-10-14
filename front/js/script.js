@@ -28,6 +28,7 @@ async function addProductsToHtml()
         </article>
       </a>`
       /* 
+       let elem = document.getElementById('items');
         let a = document.createElement('a');
         a.href = "./product.html?id=${res[i]._id}";
         elem.appendChild(a);
