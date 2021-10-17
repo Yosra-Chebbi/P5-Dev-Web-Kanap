@@ -24,32 +24,51 @@ async function getProduct()
 
 async function addProductToHtml()
 {
-let res = await getProduct();
+    let res = await getProduct();
 
-let elem = document.getElementsByClassName('item__img')[0];
-let image = document.createElement('img');
-image.src = res.imageUrl;
-image.alt = res.altTxt;
-elem.appendChild(image);
+    let elem = document.getElementsByClassName('item__img')[0];
+    let image = document.createElement('img');
+    image.src = res.imageUrl;
+    image.alt = res.altTxt;
+    elem.appendChild(image);
 
-let h1 = document.getElementById('title');
-h1.innerText = res.name;
+    let h1 = document.getElementById('title');
+    h1.innerText = res.name;
 
-let prix = document.getElementById('price');
-prix.innerText = res.price;
+    let prix = document.getElementById('price');
+    prix.innerText = res.price;
 
-let description = document.getElementById('description');
-description.innerText = res.description;
+    let description = document.getElementById('description');
+    description.innerText = res.description;
 
-let color = document.getElementById('colors');
-for(let i=0; i < res.colors.length;i++)
-{
-    let couleur = document.createElement('option');
-    couleur.value = res.colors[i];
-    couleur.innerText = res.colors[i];
-    color.appendChild(couleur);
-}     
+    let color = document.getElementById('colors');
+    for(let i=0; i < res.colors.length;i++)
+    {
+        let couleur = document.createElement('option');
+        couleur.value = res.colors[i];
+        couleur.innerText = res.colors[i];
+        color.appendChild(couleur);
+    }
+    return res;
 
 }
 
-addProductToHtml();
+async function init()
+{
+    let product = await addProductToHtml();
+
+    document.getElementById("addToCart").addEventListener("click", 
+    function () {
+        
+        product.color   = document.getElementById('colors').value;
+        product.quantity= document.getElementById('quantity').value;
+
+        localStorage.setItem(product._id,  JSON.stringify(product));
+    
+        console.log("votre clé est :"+localStorage.getItem(product._id));
+    });
+
+}
+
+
+init();
