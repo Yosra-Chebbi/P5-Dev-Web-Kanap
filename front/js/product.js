@@ -59,13 +59,30 @@ async function init()
 
     document.getElementById("addToCart").addEventListener("click", 
     function () {
-        
+    
         product.color   = document.getElementById('colors').value;
         product.quantity= document.getElementById('quantity').value;
 
-        localStorage.setItem(product._id,  JSON.stringify(product));
-    
-        console.log("votre clé est :"+localStorage.getItem(product._id));
+        let key =product._id+product.color;
+        let found=false;
+        for (let i = 0; i < localStorage.length; i++) 
+        {
+            if ( key == localStorage.key(i) )
+            { 
+                console.log("Product already exist :"+localStorage.getItem(key));
+                let old_product =JSON.parse(localStorage.getItem(key))
+                old_product.quantity = parseInt(old_product.quantity) + parseInt(product.quantity);
+                localStorage.setItem(key,  JSON.stringify(old_product));
+                found=true;
+            } 
+        }
+
+        if (found == false) 
+        {
+             localStorage.setItem(key,  JSON.stringify(product));
+             console.log("Add new product :"+localStorage.getItem(key));
+           
+        }
     });
 
 }
