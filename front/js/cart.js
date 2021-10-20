@@ -1,15 +1,13 @@
 
 async function addPanierToHtml()
 {
-    //console.log(localStorage.getItem("resultat"));
-  
     let html='';
     
     for (let i = 0; i < localStorage.length; i++) 
     {
      let product = JSON.parse(localStorage.getItem(localStorage.key(i)));
       
-      html+= `<article class="cart__item" data-id="{product-ID}">
+      html+= `<article class="cart__item" data-id=${product._id+product.color}>
        <div class="cart__item__img">
          <img src="${product.imageUrl}" alt="${product.altTxt}">
        </div>
@@ -31,25 +29,64 @@ async function addPanierToHtml()
      </article> `;
 }
     document.getElementById('cart__items').innerHTML = html;
-
+    Supprimerproduit();
 }
 
 addPanierToHtml();
 
-async function addQuantityPanierToHtml()
+async function totalQuantityPricePanierToHtml()
 {
   let qty = document.getElementById('totalQuantity'); 
   let totalprice = document.getElementById('totalPrice'); 
   let array = document.getElementsByClassName('itemQuantity');
   let array2 = document.getElementsByClassName('cart__item__content__titlePrice');
-let sum1 = 0;
-let sum2 = 0;
+  let sum1 = 0;
+  let sum2 = 0;
 
-for (let i = 0; i < array.length; i++) {
-    sum1 += parseInt(array[i].value);
-    sum2 += ( parseInt(array[i].value) * parseInt(array2[i].children[1].innerText));
+  for (let i = 0; i < array.length; i++) 
+  {
+      sum1 += parseInt(array[i].value);
+      sum2 += ( parseInt(array[i].value) * parseInt(array2[i].children[1].innerText));
+  }
+  qty.innerHTML = sum1;
+  totalprice.innerHTML = sum2;
 }
-qty.innerHTML = sum1;
-totalprice.innerHTML = sum2;
+
+totalQuantityPricePanierToHtml();
+
+async function changequantitypanier()
+{
+  let itemQuantity = document.querySelectorAll(".itemQuantity");
+  for(let i = 0; i < itemQuantity.length; i++) 
+  {
+    itemQuantity[i].addEventListener("change", function() 
+    {
+        let key = document.querySelectorAll("article")[i].dataset.id;
+        console.log("product :"+key);
+        let quantity= itemQuantity[i].value;
+
+        let product =JSON.parse(localStorage.getItem(key));
+        product.quantity = quantity;
+        localStorage.setItem(key,  JSON.stringify(product));
+        totalQuantityPricePanierToHtml();
+    });
+    }
+  
 }
-addQuantityPanierToHtml();
+
+changequantitypanier(); 
+
+async function Supprimerproduit()
+{
+  let deleteProduct = document.querySelectorAll(".deleteItem");
+  for(let i = 0; i < deleteProduct.length; i++) 
+  {
+    deleteProduct[i].addEventListener("click", function() 
+    {
+      let key = document.querySelectorAll("article")[i].dataset.id;
+      localStorage.removeItem(key);
+      addPanierToHtml();
+      totalQuantityPricePanierToHtml();
+    });
+  }
+}

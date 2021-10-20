@@ -55,6 +55,7 @@ async function addProductToHtml()
 
 async function init()
 {
+   
     let product = await addProductToHtml();
 
     document.getElementById("addToCart").addEventListener("click", 
