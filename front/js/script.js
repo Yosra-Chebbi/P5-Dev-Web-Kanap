@@ -50,7 +50,7 @@ async function addProductsToHtml()
         p.class = "productDescription";
         p.innerText = res[i].description;
         article.appendChild(p);
-        */
+         
      }
 
      elem.innerHTML=html;

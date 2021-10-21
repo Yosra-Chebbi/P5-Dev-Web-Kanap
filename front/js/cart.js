@@ -90,3 +90,48 @@ async function Supprimerproduit()
     });
   }
 }
+
+async function ReglerFormulaire()
+{
+  let formulaire = document.querySelectorAll(".cart__order__form__question");
+  for(let i = 0; i < formulaire.length; i++) 
+  {
+    if (i==0 || i== 1 || i==3 )
+    {
+        formulaire[i].children[1].addEventListener("input", function(e) {
+        if (/^[a-zA-ZéèçàÀÉÈÇ ]+$/.test(e.target.value)) {
+          formulaire[i].children[2].innerText=" ";
+          
+        } else {
+          
+          formulaire[i].children[2].innerText="ci est un message d'erreur";
+          
+        }
+      });
+   }
+  }
+   let address = document.getElementById("address");
+   address.addEventListener("input", function(e) {
+  if (/^[a-zA-Z0-9\s\,\''\-]*$/.test(e.target.value)) {
+    document.getElementById("addressErrorMsg").innerText=" ";
+    
+  } else {
+    
+    document.getElementById("addressErrorMsg").innerText="ci est un message d'erreur";
+    
+  }
+});
+  var email = document.getElementById('email');
+email.addEventListener("input", function () {
+  if (email.validity.valid) {
+    document.getElementById("emailErrorMsg").innerHTML = "";
+  }else {
+    
+      document.getElementById("emailErrorMsg").innerText="ci est un message d'erreur";
+    }
+  });
+  
+}
+
+ReglerFormulaire();
+
