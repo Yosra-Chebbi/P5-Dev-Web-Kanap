@@ -1,4 +1,4 @@
-
+/*Récupérez de la valeur de paramètre id de l'url */
 async function getId()
 {
     let str =  window.location.href;
@@ -6,7 +6,7 @@ async function getId()
     var id = url.searchParams.get("id");
     return id;
 }
-
+/*Récupérez le résultat de la requête sur un seul produit*/
 async function getProduct() 
 {
     let id = await getId();
@@ -21,7 +21,7 @@ async function getProduct()
         console.log(error);
     }
 }
-
+/*Afficher le produit sur la page produit qu'on a choisi de la page d'accueil.*/
 async function addProductToHtml()
 {
     let res = await getProduct();
@@ -52,8 +52,8 @@ async function addProductToHtml()
     return res;
 
 }
-
-async function init()
+/*Stocker les données du produit et plus précisement la couleur et la quantité choisis.*/
+async function storedata()
 {
     let product = await addProductToHtml();
 
@@ -88,4 +88,4 @@ async function init()
 }
 
 
-init();
+storedata();

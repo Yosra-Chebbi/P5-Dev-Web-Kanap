@@ -1,3 +1,4 @@
+/*Récupérez le résultat de la requête sur tous les produits*/
 async function getProducts() 
 {
     let url = 'http://127.0.0.1:3000/api/products';
@@ -11,7 +12,7 @@ async function getProducts()
         console.log(error);
     }
 }
-
+/*intégrer l’ensemble des produits de l’API dans la page d'accueil du site web.*/
 async function addProductsToHtml()
 {
     let res = await getProducts();

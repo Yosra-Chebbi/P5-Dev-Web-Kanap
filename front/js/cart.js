@@ -7,6 +7,7 @@ console.log( page );
 
 if( page == "cart.html")
 {
+  /*Affichage des produits ajoutés dans le panier.*/
   async function addPanierToHtml()
   {
       let html='';
@@ -42,6 +43,7 @@ if( page == "cart.html")
 
   addPanierToHtml();
 
+/*Total de la quantité et le prix des produits.*/
   async function totalQuantityPricePanierToHtml()
   {
     let qty = document.getElementById('totalQuantity'); 
@@ -62,6 +64,7 @@ if( page == "cart.html")
 
   totalQuantityPricePanierToHtml();
 
+/*Modification de la qunantité des produits.*/
   async function changequantitypanier()
   {
     let itemQuantity = document.querySelectorAll(".itemQuantity");
@@ -84,6 +87,7 @@ if( page == "cart.html")
 
   changequantitypanier(); 
 
+  /*Suppression des produits par le bouton supprimer.*/
   async function Supprimerproduit()
   {
     let deleteProduct = document.querySelectorAll(".deleteItem");
@@ -98,6 +102,7 @@ if( page == "cart.html")
       });
     }
   }
+  /*Fonction activer et désactiver le bouton commander.*/
   function disableSubmit(disabled) {
     if (disabled) {
       document
@@ -109,6 +114,7 @@ if( page == "cart.html")
         .removeAttribute("disabled");
     }
   }
+  /*Analyser les données saisies par l’utilisateur dans le formulaire.*/
   async function ReglerFormulaire()
   {
     let formulaire = document.querySelectorAll(".cart__order__form__question");
@@ -155,6 +161,7 @@ if( page == "cart.html")
 
   ReglerFormulaire();
 
+  /*Tableau des produits commandés qui sont affichés sur la page panier.*/
   function getProductKey()
   {
   let array = [];
@@ -166,7 +173,7 @@ if( page == "cart.html")
   return array;
   }
 
-
+/*Envoyer des données avec une requête POST et recevoir le numéro du commande.*/
   function send(e) 
   {
     console.log("TEST");
