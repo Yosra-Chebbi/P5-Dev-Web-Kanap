@@ -55,7 +55,7 @@ async function storeData() {
     product.color = document.getElementById("colors").value;
     product.quantity = document.getElementById("quantity").value;
 
-    //clé de local storage est "id" +"couleur", pour permettre de choisir le même produit avec couleurs diffrentes
+    //clé de local storage est "id" +"couleur", pour permettre de choisir le même produit avec couleurs différentes
     let key = product._id + product.color;
     let found = false;
     for (let i = 0; i < localStorage.length; i++) {

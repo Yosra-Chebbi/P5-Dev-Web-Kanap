@@ -1,6 +1,5 @@
 var path = window.location.pathname;
 var page = path.split("/").pop();
-console.log(page);
 
 //Page js utilisée par deux pages html
 if (page == "cart.html") {
@@ -48,16 +47,13 @@ if (page == "cart.html") {
     let qty = document.getElementById("totalQuantity");
     let totalprice = document.getElementById("totalPrice");
     let array = document.getElementsByClassName("itemQuantity");
-    let array2 = document.getElementsByClassName(
-      "cart__item__content__titlePrice"
-    );
+    let array2 = document.getElementsByClassName("cart__item__content__titlePrice");
     let sum1 = 0;
     let sum2 = 0;
 
     for (let i = 0; i < array.length; i++) {
       sum1 += parseInt(array[i].value);
-      sum2 +=
-        parseInt(array[i].value) * parseInt(array2[i].children[1].innerText);
+      sum2 += parseInt(array[i].value) * parseInt(array2[i].children[1].innerText);
     }
     qty.innerHTML = sum1;
     totalprice.innerHTML = sum2;
@@ -123,7 +119,6 @@ if (page == "cart.html") {
         });
       }
     }
-
     let address = document.getElementById("address");
     address.addEventListener("input", function (e) {
       if (/^[a-zA-Z0-9\s\,\''\-]+$/.test(e.target.value)) {
