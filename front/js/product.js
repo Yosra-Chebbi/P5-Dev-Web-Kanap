@@ -44,8 +44,15 @@ async function addProductToHtml() {
     couleur.innerText = res.colors[i];
     color.appendChild(couleur);
   }
+
+  document.getElementById("colors").options[0].disabled = true;
+  document.getElementById("colors").options[1].selected = true;
+  document.getElementById("quantity").setAttribute("value", "1");
+
+
   return res;
 }
+
 
 /*Stocker les données du produit en plus de la couleur et la quantité choisis.*/
 async function storeData() {
@@ -54,6 +61,7 @@ async function storeData() {
   document.getElementById("addToCart").addEventListener("click", function () {
     product.color = document.getElementById("colors").value;
     product.quantity = document.getElementById("quantity").value;
+
 
     //clé de local storage est "id" +"couleur", pour permettre de choisir le même produit avec couleurs différentes
     let key = product._id + product.color;
@@ -79,3 +87,5 @@ async function storeData() {
 
 //Appeller cette fonction au chargement de la page web
 storeData();
+
+
