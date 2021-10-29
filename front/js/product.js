@@ -21,7 +21,6 @@ async function getProduct() {
 /*Afficher le produit, qu'on a choisi de la page d'accueil, sur la page produit .*/
 async function addProductToHtml() {
   let res = await getProduct();
-
   let elem = document.getElementsByClassName("item__img")[0];
   let image = document.createElement("img");
   image.src = res.imageUrl;
@@ -48,7 +47,6 @@ async function addProductToHtml() {
   document.getElementById("colors").options[0].disabled = true;
   document.getElementById("colors").options[1].selected = true;
   document.getElementById("quantity").setAttribute("value", "1");
-
 
   return res;
 }
