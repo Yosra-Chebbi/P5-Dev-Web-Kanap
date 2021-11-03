@@ -92,16 +92,8 @@ if (page == "cart.html") {
         localStorage.removeItem(key);
         addPanierToHtml(); //reconstruire le html
         totalQuantityPricePanierToHtml(); // recalculer la quantity et le prix total
+        changeQuantityPanier();
       });
-    }
-  }
-
-  /*Fonction activer et désactiver le bouton commander.*/
-  function disableSubmit(disabled) {
-    if (disabled) {
-      document.getElementById("order").setAttribute("disabled", true);
-    } else {
-      document.getElementById("order").removeAttribute("disabled");
     }
   }
 
@@ -114,10 +106,8 @@ if (page == "cart.html") {
         formulaire[i].children[1].addEventListener("input", function (e) {
           if (/^[a-zA-ZéèçàÀÉÈÇ ]+$/.test(e.target.value)) {
             formulaire[i].children[2].innerText = " ";
-            disableSubmit(false);
           } else {
             formulaire[i].children[2].innerText = "ci est un message d'erreur";
-            disableSubmit(true);
           }
         });
       }
@@ -126,11 +116,9 @@ if (page == "cart.html") {
     address.addEventListener("input", function (e) {
       if (/^[a-zA-Z0-9\s\,\''\-]+$/.test(e.target.value)) {
         document.getElementById("addressErrorMsg").innerText = "";
-        disableSubmit(false);
       } else {
         document.getElementById("addressErrorMsg").innerText =
           "ci est un message d'erreur";
-        disableSubmit(true);
       }
     });
 
@@ -138,11 +126,9 @@ if (page == "cart.html") {
     email.addEventListener("input", function () {
       if (email.validity.valid) {
         document.getElementById("emailErrorMsg").innerHTML = "";
-        disableSubmit(false);
       } else {
         document.getElementById("emailErrorMsg").innerText =
           "ci est un message d'erreur";
-        disableSubmit(true);
       }
     });
   }
@@ -161,8 +147,29 @@ if (page == "cart.html") {
 
   /*Envoyer des données avec une requête POST et recevoir le numéro du commande.*/
   function send(e) {
-    console.log("TEST");
     e.preventDefault();
+
+    let firstNameErrorMsg =
+      document.getElementById("firstNameErrorMsg").innerText;
+    let lastNameErrorMsg =
+      document.getElementById("lastNameErrorMsg").innerText;
+    let addressErrorMsg = document.getElementById("addressErrorMsg").innerText;
+    let cityErrorMsg = document.getElementById("cityErrorMsg").innerText;
+    let emailErrorMsg = document.getElementById("emailErrorMsg").innerText;
+
+    if (
+      firstNameErrorMsg == "" &&
+      lastNameErrorMsg == "" &&
+      addressErrorMsg == "" &&
+      cityErrorMsg == "" &&
+      emailErrorMsg == ""
+    ) {
+      console.log("checkInput enabled ");
+    } else {
+      console.log("checkInput disabled ");
+      return;
+    }
+
     fetch("http://127.0.0.1:3000/api/products//order", {
       method: "POST",
       headers: {
