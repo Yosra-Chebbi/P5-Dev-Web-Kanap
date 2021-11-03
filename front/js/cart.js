@@ -167,7 +167,7 @@ if (page == "cart.html") {
       console.log("checkInput enabled ");
     } else {
       console.log("checkInput disabled ");
-      return;
+      return;//ne pas envoyer la requête
     }
 
     fetch("http://127.0.0.1:3000/api/products//order", {
